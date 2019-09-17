@@ -31,6 +31,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuPricipal = new javax.swing.JMenuBar();
         menuCadastros = new javax.swing.JMenu();
         menuItemMedicamento = new javax.swing.JMenuItem();
+        menuitemCadEquipamento = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().add(areaDeTrabalho, java.awt.BorderLayout.CENTER);
@@ -45,6 +46,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuCadastros.add(menuItemMedicamento);
 
+        menuitemCadEquipamento.setText("Equipamentos");
+        menuitemCadEquipamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuitemCadEquipamentoActionPerformed(evt);
+            }
+        });
+        menuCadastros.add(menuitemCadEquipamento);
+
         menuPricipal.add(menuCadastros);
 
         setJMenuBar(menuPricipal);
@@ -56,6 +65,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void menuItemMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMedicamentoActionPerformed
         areaDeTrabalho.abrirCadastroMedicamento();
     }//GEN-LAST:event_menuItemMedicamentoActionPerformed
+
+    private void menuitemCadEquipamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuitemCadEquipamentoActionPerformed
+        areaDeTrabalho.abrirCadastroEquipamento();
+    }//GEN-LAST:event_menuitemCadEquipamentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -98,5 +111,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastros;
     private javax.swing.JMenuItem menuItemMedicamento;
     private javax.swing.JMenuBar menuPricipal;
+    private javax.swing.JMenuItem menuitemCadEquipamento;
     // End of variables declaration//GEN-END:variables
 }

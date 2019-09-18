@@ -41,6 +41,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuItemEntregaExterna = new javax.swing.JMenuItem();
         menuItemEntregaInterna = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
+        menuAtributos = new javax.swing.JMenu();
+        itemMenuFormato = new javax.swing.JMenuItem();
+        itemMenuModoUso = new javax.swing.JMenuItem();
+        itemMenuTipo = new javax.swing.JMenuItem();
+        itemMenuNivelAcesso = new javax.swing.JMenuItem();
         menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,6 +122,22 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuRelatorios.setText("Relatorios");
         menuPricipal.add(menuRelatorios);
 
+        menuAtributos.setText("Atributos");
+
+        itemMenuFormato.setText("Formato");
+        menuAtributos.add(itemMenuFormato);
+
+        itemMenuModoUso.setText("Modo de Uso");
+        menuAtributos.add(itemMenuModoUso);
+
+        itemMenuTipo.setText("Tipo");
+        menuAtributos.add(itemMenuTipo);
+
+        itemMenuNivelAcesso.setText("Nivel de Acesso");
+        menuAtributos.add(itemMenuNivelAcesso);
+
+        menuPricipal.add(menuAtributos);
+
         menuSair.setText("Sair");
         menuPricipal.add(menuSair);
 
@@ -188,6 +209,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private medmanager.AreaDeTrabalho areaDeTrabalho;
+    private javax.swing.JMenuItem itemMenuFormato;
+    private javax.swing.JMenuItem itemMenuModoUso;
+    private javax.swing.JMenuItem itemMenuNivelAcesso;
+    private javax.swing.JMenuItem itemMenuTipo;
+    private javax.swing.JMenu menuAtributos;
     private javax.swing.JMenu menuEntragas;
     private javax.swing.JMenuItem menuItemEntregaExterna;
     private javax.swing.JMenuItem menuItemEntregaInterna;

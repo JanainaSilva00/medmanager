@@ -88,6 +88,33 @@
             <Property name="text" type="java.lang.String" value="Relatorios"/>
           </Properties>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuAtributos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atributos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuFormato">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Formato"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuModoUso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Modo de Uso"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuTipo">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Tipo"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itemMenuNivelAcesso">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nivel de Acesso"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="menuSair">
           <Properties>
             <Property name="text" type="java.lang.String" value="Sair"/>

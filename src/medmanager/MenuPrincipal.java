@@ -29,13 +29,26 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         areaDeTrabalho = new medmanager.AreaDeTrabalho();
         menuPricipal = new javax.swing.JMenuBar();
-        menuCadastros = new javax.swing.JMenu();
+        menuProdutos = new javax.swing.JMenu();
         menuItemMedicamento = new javax.swing.JMenuItem();
+        menuItemUtensilios = new javax.swing.JMenuItem();
+        menuItemProdutosGerais = new javax.swing.JMenuItem();
+        menuPessoas = new javax.swing.JMenu();
+        menuItemFuncionario = new javax.swing.JMenuItem();
+        menuItemPaciente = new javax.swing.JMenuItem();
+        menuItemUsuario = new javax.swing.JMenuItem();
+        menuEntragas = new javax.swing.JMenu();
+        menuItemEntregaExterna = new javax.swing.JMenuItem();
+        menuItemEntregaInterna = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        menuSair = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        areaDeTrabalho.setToolTipText("");
         getContentPane().add(areaDeTrabalho, java.awt.BorderLayout.CENTER);
 
-        menuCadastros.setText("Cadastros");
+        menuProdutos.setText("Produtos");
 
         menuItemMedicamento.setText("Medicamentos");
         menuItemMedicamento.addActionListener(new java.awt.event.ActionListener() {
@@ -43,19 +56,99 @@ public class MenuPrincipal extends javax.swing.JFrame {
                 menuItemMedicamentoActionPerformed(evt);
             }
         });
-        menuCadastros.add(menuItemMedicamento);
+        menuProdutos.add(menuItemMedicamento);
 
-        menuPricipal.add(menuCadastros);
+        menuItemUtensilios.setText("Utensilios Medicos");
+        menuItemUtensilios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemUtensiliosActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(menuItemUtensilios);
+
+        menuItemProdutosGerais.setText("Produtos Gerais");
+        menuItemProdutosGerais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProdutosGeraisActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(menuItemProdutosGerais);
+
+        menuPricipal.add(menuProdutos);
+
+        menuPessoas.setText("Pessoas");
+
+        menuItemFuncionario.setText("Funcionario");
+        menuItemFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemFuncionarioActionPerformed(evt);
+            }
+        });
+        menuPessoas.add(menuItemFuncionario);
+
+        menuItemPaciente.setText("Paciente");
+        menuItemPaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemPacienteActionPerformed(evt);
+            }
+        });
+        menuPessoas.add(menuItemPaciente);
+
+        menuItemUsuario.setText("Usuario");
+        menuItemUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemUsuarioActionPerformed(evt);
+            }
+        });
+        menuPessoas.add(menuItemUsuario);
+
+        menuPricipal.add(menuPessoas);
+
+        menuEntragas.setText("Entregas");
+
+        menuItemEntregaExterna.setText("Entrega Externa");
+        menuEntragas.add(menuItemEntregaExterna);
+
+        menuItemEntregaInterna.setText("Entrega Interna");
+        menuEntragas.add(menuItemEntregaInterna);
+
+        menuPricipal.add(menuEntragas);
+
+        menuRelatorios.setText("Relatorios");
+        menuPricipal.add(menuRelatorios);
+
+        menuSair.setText("Sair");
+        menuPricipal.add(menuSair);
 
         setJMenuBar(menuPricipal);
 
-        setSize(new java.awt.Dimension(369, 507));
+        setSize(new java.awt.Dimension(558, 507));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuItemMedicamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMedicamentoActionPerformed
         areaDeTrabalho.abrirCadastroMedicamento();
     }//GEN-LAST:event_menuItemMedicamentoActionPerformed
+
+    private void menuItemUtensiliosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemUtensiliosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemUtensiliosActionPerformed
+
+    private void menuItemProdutosGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProdutosGeraisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemProdutosGeraisActionPerformed
+
+    private void menuItemFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFuncionarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemFuncionarioActionPerformed
+
+    private void menuItemPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPacienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemPacienteActionPerformed
+
+    private void menuItemUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuItemUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -95,8 +188,19 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private medmanager.AreaDeTrabalho areaDeTrabalho;
-    private javax.swing.JMenu menuCadastros;
+    private javax.swing.JMenu menuEntragas;
+    private javax.swing.JMenuItem menuItemEntregaExterna;
+    private javax.swing.JMenuItem menuItemEntregaInterna;
+    private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemMedicamento;
+    private javax.swing.JMenuItem menuItemPaciente;
+    private javax.swing.JMenuItem menuItemProdutosGerais;
+    private javax.swing.JMenuItem menuItemUsuario;
+    private javax.swing.JMenuItem menuItemUtensilios;
+    private javax.swing.JMenu menuPessoas;
     private javax.swing.JMenuBar menuPricipal;
+    private javax.swing.JMenu menuProdutos;
+    private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenu menuSair;
     // End of variables declaration//GEN-END:variables
 }

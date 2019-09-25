@@ -10,6 +10,7 @@ import javax.swing.JInternalFrame;
 public class AreaDeTrabalho extends JDesktopPane
 {
     private JInternalFrame cadMedicamento;
+    private JInternalFrame geFornecedor;
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
@@ -18,7 +19,21 @@ public class AreaDeTrabalho extends JDesktopPane
             add(cadMedicamento);
         }
     }
+    
     public void fecharCadastroMedicamento(){
         cadMedicamento = null;
     }
+    
+    public void abrirGerenciarFornecedor(){
+        if (geFornecedor == null) {
+            geFornecedor = new GerenciarFornecedor();
+            geFornecedor.setVisible(true);
+            add(geFornecedor);
+        }
+    }
+    
+    public void fecharGerenciarFornecedor(){
+        geFornecedor = null;
+    }
+            
 }

@@ -37,6 +37,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuItemFuncionario = new javax.swing.JMenuItem();
         menuItemPaciente = new javax.swing.JMenuItem();
         menuItemUsuario = new javax.swing.JMenuItem();
+        menuItemFornecedor = new javax.swing.JMenuItem();
         menuEntragas = new javax.swing.JMenu();
         menuItemEntregaExterna = new javax.swing.JMenuItem();
         menuItemEntregaInterna = new javax.swing.JMenuItem();
@@ -107,6 +108,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuPessoas.add(menuItemUsuario);
 
+        menuItemFornecedor.setText("Fornecedor");
+        menuItemFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemFornecedorActionPerformed(evt);
+            }
+        });
+        menuPessoas.add(menuItemFornecedor);
+
         menuPricipal.add(menuPessoas);
 
         menuEntragas.setText("Entregas");
@@ -171,6 +180,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemUsuarioActionPerformed
 
+    private void menuItemFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFornecedorActionPerformed
+        areaDeTrabalho.abrirGerenciarFornecedor();
+    }//GEN-LAST:event_menuItemFornecedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -217,6 +230,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu menuEntragas;
     private javax.swing.JMenuItem menuItemEntregaExterna;
     private javax.swing.JMenuItem menuItemEntregaInterna;
+    private javax.swing.JMenuItem menuItemFornecedor;
     private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemMedicamento;
     private javax.swing.JMenuItem menuItemPaciente;

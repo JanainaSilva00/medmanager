@@ -5,19 +5,65 @@
  */
 package medmanager;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Binding;
+import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.observablecollections.ObservableCollections;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.SwingBindings;
 /**
  *
  * @author Israel Elias
  */
 public class GerenciarFornecedor extends javax.swing.JInternalFrame {
-
+    private List<Fornecedor> lstFornecedor;
     /**
      * Creates new form GerenciarFornecedor
      */
     public GerenciarFornecedor() {
+        lstFornecedor = new ArrayList<>();
+        lstFornecedor = ObservableCollections.observableList(lstFornecedor);
+        
         initComponents();
+        
+        BindingGroup bg = new BindingGroup();
+        
+        JTableBinding tb = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ_WRITE,
+                lstFornecedor, tbFornecedor);
+        JTableBinding.ColumnBinding cb = tb.addColumnBinding(BeanProperty.create("nome"));
+        cb.setColumnName("Nome do Cliente");
+        cb = tb.addColumnBinding(BeanProperty.create("telefone"));
+        cb.setColumnName("Telefone");
+        cb = tb.addColumnBinding(BeanProperty.create("cnpj"));
+        cb.setColumnName("CNPJ");
+        
+        bg.addBinding(tb);
+        
+        Binding b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                tbFornecedor, BeanProperty.create("selectedElement.nome"),
+                txtNome, BeanProperty.create("text"));
+        bg.addBinding(b);
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                tbFornecedor, BeanProperty.create("selectedElement.telefone"),
+                txtTelefone, BeanProperty.create("text"));
+        bg.addBinding(b);
+        
+        b = Bindings.createAutoBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                tbFornecedor, BeanProperty.create("selectedElement.cnpj"),
+                txtCnpj, BeanProperty.create("text"));
+        bg.addBinding(b);        
+        bg.bind();
     }
-
+         
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -27,13 +73,17 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtBuscarFornecedor = new javax.swing.JTextField();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbFornecedor = new javax.swing.JTable();
         btnAdicionar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
         btnExcluir = new javax.swing.JButton();
+        descricao = new javax.swing.JLabel();
+        nome = new javax.swing.JLabel();
+        txtNome = new javax.swing.JTextField();
+        txtTelefone = new javax.swing.JTextField();
+        concentracao = new javax.swing.JLabel();
+        validade = new javax.swing.JLabel();
+        txtCnpj = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -45,13 +95,25 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
             e1.printStackTrace();
         }
         setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
-        txtBuscarFornecedor.setText("Digite aqui...");
-
-        btnBuscar.setBackground(new java.awt.Color(0, 100, 0));
-        btnBuscar.setText("Buscar");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbFornecedor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -62,66 +124,159 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbFornecedor);
 
-        btnAdicionar.setBackground(new java.awt.Color(0, 0, 0));
+        btnAdicionar.setBackground(new java.awt.Color(102, 255, 102));
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
-        btnModificar.setBackground(new java.awt.Color(150, 150, 150));
-        btnModificar.setText("Modificar");
-
-        btnExcluir.setBackground(new java.awt.Color(0, 0, 0));
+        btnExcluir.setBackground(new java.awt.Color(255, 102, 102));
         btnExcluir.setText("Excluir");
+        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirActionPerformed(evt);
+            }
+        });
+
+        descricao.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        descricao.setText("Informações do Fornecedor");
+
+        nome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        nome.setText("Nome");
+
+        txtNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtTelefone.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefoneActionPerformed(evt);
+            }
+        });
+
+        concentracao.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        concentracao.setText("Telefone");
+
+        validade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        validade.setText("CNPJ");
+
+        txtCnpj.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtBuscarFornecedor)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnAdicionar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnModificar)
-                            .addGap(80, 80, 80)
-                            .addComponent(btnExcluir))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                        .addComponent(btnExcluir)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAdicionar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(concentracao)
+                            .addComponent(nome)
+                            .addComponent(validade))
+                        .addGap(42, 42, 42)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                            .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtCnpj))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(descricao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nome))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar)
-                    .addComponent(txtBuscarFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(concentracao)
+                    .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(validade)
+                    .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnModificar)
                     .addComponent(btnExcluir))
-                .addGap(25, 25, 25))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        Fornecedor f = new Fornecedor();
+        if(tbFornecedor.getSelectedRows().length==0){
+            f.setNome(txtNome.getText());
+            f.setTelefone(txtTelefone.getText());
+            f.setCnpj(txtCnpj.getText());
+            lstFornecedor.add(f);
+            txtNome.setText("");
+            txtTelefone.setText("");
+            txtCnpj.setText("");
+        }else{
+            lstFornecedor.add(f);
+            tbFornecedor.getSelectionModel().setSelectionInterval(
+                    lstFornecedor.size()-1, 
+                    lstFornecedor.size()-1);
+        }
+        
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        if(getDesktopPane() instanceof AreaDeTrabalho){
+            ((AreaDeTrabalho)getDesktopPane()).fecharGerenciarFornecedor();
+        }
+    }//GEN-LAST:event_formInternalFrameClosing
+
+    private void txtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefoneActionPerformed
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int v[] = tbFornecedor.getSelectedRows();
+        List<Fornecedor> c = new LinkedList<>();
+        
+        for(int i=0;i<v.length;i++) 
+        {
+            int idxTabela = v[i];
+            int idxList = tbFornecedor.convertRowIndexToModel(idxTabela);
+            c.add(lstFornecedor.get(idxList));
+        }
+        
+        lstFornecedor.removeAll(c);
+        txtNome.setText("");
+        txtTelefone.setText("");
+        txtCnpj.setText("");
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnModificar;
+    private javax.swing.JLabel concentracao;
+    private javax.swing.JLabel descricao;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField txtBuscarFornecedor;
+    private javax.swing.JLabel nome;
+    private javax.swing.JTable tbFornecedor;
+    private javax.swing.JTextField txtCnpj;
+    private javax.swing.JTextField txtNome;
+    private javax.swing.JTextField txtTelefone;
+    private javax.swing.JLabel validade;
     // End of variables declaration//GEN-END:variables
 }

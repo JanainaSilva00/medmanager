@@ -11,6 +11,7 @@ public class AreaDeTrabalho extends JDesktopPane
 {
     private JInternalFrame cadMedicamento;
     private JInternalFrame geFornecedor;
+    private JInternalFrame formFornecedor;
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
@@ -34,6 +35,5 @@ public class AreaDeTrabalho extends JDesktopPane
     
     public void fecharGerenciarFornecedor(){
         geFornecedor = null;
-    }
-            
+    } 
 }

@@ -38,6 +38,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuItemPaciente = new javax.swing.JMenuItem();
         menuItemUsuario = new javax.swing.JMenuItem();
         menuItemFornecedor = new javax.swing.JMenuItem();
+        menuItemMedico = new javax.swing.JMenuItem();
         menuEntragas = new javax.swing.JMenu();
         menuItemEntregaExterna = new javax.swing.JMenuItem();
         menuItemEntregaInterna = new javax.swing.JMenuItem();
@@ -116,6 +117,14 @@ public class MenuPrincipal extends javax.swing.JFrame {
         });
         menuPessoas.add(menuItemFornecedor);
 
+        menuItemMedico.setText("Medico");
+        menuItemMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemMedicoActionPerformed(evt);
+            }
+        });
+        menuPessoas.add(menuItemMedico);
+
         menuPricipal.add(menuPessoas);
 
         menuEntragas.setText("Entregas");
@@ -184,6 +193,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
         areaDeTrabalho.abrirGerenciarFornecedor();
     }//GEN-LAST:event_menuItemFornecedorActionPerformed
 
+    private void menuItemMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMedicoActionPerformed
+        areaDeTrabalho.abrirGerenciarMedico();
+    }//GEN-LAST:event_menuItemMedicoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -233,6 +246,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemFornecedor;
     private javax.swing.JMenuItem menuItemFuncionario;
     private javax.swing.JMenuItem menuItemMedicamento;
+    private javax.swing.JMenuItem menuItemMedico;
     private javax.swing.JMenuItem menuItemPaciente;
     private javax.swing.JMenuItem menuItemProdutosGerais;
     private javax.swing.JMenuItem menuItemUsuario;

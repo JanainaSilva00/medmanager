@@ -14,6 +14,20 @@ import java.beans.PropertyChangeSupport;
  */
 public class Funcionario {
     
+    private Integer id;
+
+    public static final String PROP_ID = "id";
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        Integer oldId = this.id;
+        this.id = id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
+    }
+    
     private String nome;
 
     public static final String PROP_NOME = "nome";

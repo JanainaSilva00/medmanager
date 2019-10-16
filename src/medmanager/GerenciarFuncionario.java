@@ -26,9 +26,9 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
      * Creates new form GerenciarFornecedor
      */
     public GerenciarFuncionario() {
-        lstFuncionario = new ArrayList<>();
-        lstFuncionario = ObservableCollections.observableList(lstFuncionario);
-        
+        FuncionarioDAO fd = new FuncionarioDAO();
+        lstFuncionario = fd.listar();
+       
         initComponents();
         
         BindingGroup bg = new BindingGroup();
@@ -73,6 +73,7 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
         txtNome = new javax.swing.JTextField();
         txtCpf = new javax.swing.JTextField();
         lblCpf = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -149,18 +150,30 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
         lblCpf.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblCpf.setText("CPF");
 
+        btnSalvar.setBackground(new java.awt.Color(51, 51, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnExcluir)
+                        .addGap(0, 9, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdicionar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdicionar))
+                        .addComponent(btnExcluir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nome)
@@ -190,30 +203,27 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(btnSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+
         Funcionario f = new Funcionario();
-        if(tbFuncionario.getSelectedRows().length==0){
+        if(tbFuncionario.getSelectedRows().length==0)
+        {
             f.setNome(txtNome.getText());
             f.setCpf(txtCpf.getText());
-            lstFuncionario.add(f);
             txtNome.setText("");
             txtCpf.setText("");
-        }else{
             lstFuncionario.add(f);
-            tbFuncionario.getSelectionModel().setSelectionInterval(
-                    lstFuncionario.size()-1, 
-                    lstFuncionario.size()-1);
         }
-        
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
@@ -225,12 +235,14 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int v[] = tbFuncionario.getSelectedRows();
         List<Funcionario> c = new LinkedList<>();
-        
+        FuncionarioDAO fd = new FuncionarioDAO();
+
         for(int i=0;i<v.length;i++) 
         {
             int idxTabela = v[i];
             int idxList = tbFuncionario.convertRowIndexToModel(idxTabela);
             c.add(lstFuncionario.get(idxList));
+            fd.remover(lstFuncionario.get(idxList));
         }
         
         lstFuncionario.removeAll(c);
@@ -242,10 +254,23 @@ public class GerenciarFuncionario extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCpfActionPerformed
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        FuncionarioDAO fd = new FuncionarioDAO();
+        
+        for(Funcionario f:lstFuncionario){
+            if(f.getId()==null) {
+                fd.inserir(f);
+            } else {
+                fd.alterar(f);
+            }
+        }   
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel descricao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCpf;

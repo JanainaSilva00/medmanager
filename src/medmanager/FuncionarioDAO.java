@@ -47,21 +47,17 @@ public class FuncionarioDAO extends DAO<Funcionario> {
                     + "nome = ?, cpf = ? "
                     + "WHERE id_funcionario = ?";
             
-            PreparedStatement stmt = conn.prepareStatement(
-                                comando,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement stmt = conn.prepareStatement(comando);
             
             stmt.setString(1, element.getNome());
             stmt.setString(2, element.getCpf());
             stmt.setInt(3, element.getId());
             
-            int linhas = stmt.executeUpdate();
-            if(linhas==1) {
-                ResultSet rs = stmt.getGeneratedKeys();
-                rs.next();
+            if(stmt.executeUpdate() == 1) {
                 return true;
             }
         }catch(SQLException e){
-            System.out.println("erro ao inserir: "+ e.getMessage());
+            System.out.println("erro ao alterar: "+ e.getMessage());
         }
         return false;
     }

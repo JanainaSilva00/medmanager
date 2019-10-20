@@ -14,6 +14,16 @@ import java.beans.PropertyChangeSupport;
  */
 public class Medico {
     
+    private Integer id;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     private String nome;
 
     public static final String PROP_NOME = "nome";

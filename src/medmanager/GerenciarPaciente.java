@@ -26,9 +26,8 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
      * Creates new form GerenciarPaciente
      */
     public GerenciarPaciente() {
-        
-        lstPaciente = new ArrayList<>();
-        lstPaciente = ObservableCollections.observableList(lstPaciente);
+        PacienteDAO pc = new PacienteDAO();
+        lstPaciente = pc.listar();
         
         initComponents();
         
@@ -74,6 +73,7 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
         btAdcPaciente = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbPaciente = new javax.swing.JTable();
+        btnSalvar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -143,29 +143,36 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tbPaciente);
 
+        btnSalvar.setBackground(new java.awt.Color(51, 51, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btExcPaciente)
-                        .addGap(18, 18, 18)
-                        .addComponent(btAdcPaciente))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addComponent(btAdcPaciente)
+                        .addGap(18, 18, 18)
+                        .addComponent(btExcPaciente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSalvar))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbNomePaciente)
-                                    .addComponent(lbCPF))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNomePaciente)
-                                    .addComponent(txtCPFPaciente))))))
+                            .addComponent(lbNomePaciente)
+                            .addComponent(lbCPF))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNomePaciente)
+                            .addComponent(txtCPFPaciente))))
                 .addGap(25, 25, 25))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 124, Short.MAX_VALUE)
@@ -188,10 +195,11 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
                 .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btExcPaciente)
-                    .addComponent(btAdcPaciente))
+                    .addComponent(btAdcPaciente)
+                    .addComponent(btnSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,40 +210,33 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtNomePacienteActionPerformed
 
     private void btExcPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcPacienteActionPerformed
-        
         int v[] = tbPaciente.getSelectedRows();
-        
-        List<Paciente> c = new LinkedList<>();
-        
-        for(int i=0; i<v.length; i++)
+        List<Paciente> p = new LinkedList<>();
+        PacienteDAO pd = new PacienteDAO();
+
+        for(int i=0;i<v.length;i++) 
         {
-            int idxTb = v[i];
-            int idxList = tbPaciente.convertRowIndexToModel(idxTb);
-            c.add(lstPaciente.get(idxList));
+            int idxTabela = v[i];
+            int idxList = tbPaciente.convertRowIndexToModel(idxTabela);
+            p.add(lstPaciente.get(idxList));
+            pd.remover(lstPaciente.get(idxList));
         }
         
-        lstPaciente.removeAll(c);
+        lstPaciente.removeAll(p);
         txtNomePaciente.setText("");
         txtCPFPaciente.setText("");
-        
     }//GEN-LAST:event_btExcPacienteActionPerformed
 
     private void btAdcPacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdcPacienteActionPerformed
         
         Paciente p = new Paciente();
-        if(tbPaciente.getSelectedRows().length==0){
+        if(tbPaciente.getSelectedRows().length==0) {
             p.setNome(txtNomePaciente.getText());
             p.setCpf(txtCPFPaciente.getText());
-            lstPaciente.add(p);
             txtNomePaciente.setText("");
             txtCPFPaciente.setText("");
-        }else{
             lstPaciente.add(p);
-            tbPaciente.getSelectionModel().setSelectionInterval(
-                    lstPaciente.size()-1, 
-                    lstPaciente.size()-1);
         }
-        
     }//GEN-LAST:event_btAdcPacienteActionPerformed
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
@@ -246,10 +247,23 @@ public class GerenciarPaciente extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_formInternalFrameClosing
 
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        PacienteDAO pd = new PacienteDAO();
+        
+        for(Paciente p:lstPaciente){
+            if(p.getId()==null) {
+                pd.inserir(p);
+            } else {
+                pd.alterar(p);
+            }
+        }   
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdcPaciente;
     private javax.swing.JButton btExcPaciente;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCPF;
     private javax.swing.JLabel lbInfPaciente;

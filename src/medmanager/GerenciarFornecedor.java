@@ -26,9 +26,9 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
      * Creates new form GerenciarFornecedor
      */
     public GerenciarFornecedor() {
-        lstFornecedor = new ArrayList<>();
-        lstFornecedor = ObservableCollections.observableList(lstFornecedor);
-        
+        FornecedorDAO fd = new FornecedorDAO();
+        lstFornecedor = fd.listar();
+       
         initComponents();
         
         BindingGroup bg = new BindingGroup();
@@ -84,6 +84,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
         concentracao = new javax.swing.JLabel();
         validade = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JTextField();
+        btnSalvar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -165,6 +166,14 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
 
         txtCnpj.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        btnSalvar.setBackground(new java.awt.Color(51, 51, 255));
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -172,23 +181,28 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnExcluir)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(btnAdicionar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAdicionar))
+                        .addComponent(btnExcluir)
+                        .addGap(138, 138, 138)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(concentracao)
-                            .addComponent(nome)
-                            .addComponent(validade))
-                        .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
-                            .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCnpj))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(concentracao)
+                                    .addComponent(nome)
+                                    .addComponent(validade))
+                                .addGap(42, 42, 42)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(txtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                                    .addComponent(descricao, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtCnpj))))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,12 +222,14 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
                     .addComponent(validade)
                     .addComponent(txtCnpj, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionar)
-                    .addComponent(btnExcluir))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdicionar)
+                        .addComponent(btnExcluir))
+                    .addComponent(btnSalvar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         pack();
@@ -229,13 +245,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
             txtNome.setText("");
             txtTelefone.setText("");
             txtCnpj.setText("");
-        }else{
-            lstFornecedor.add(f);
-            tbFornecedor.getSelectionModel().setSelectionInterval(
-                    lstFornecedor.size()-1, 
-                    lstFornecedor.size()-1);
         }
-        
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
@@ -250,25 +260,40 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int v[] = tbFornecedor.getSelectedRows();
-        List<Fornecedor> c = new LinkedList<>();
-        
+        List<Fornecedor> f = new LinkedList<>();
+        FornecedorDAO fd = new FornecedorDAO();
+
         for(int i=0;i<v.length;i++) 
         {
             int idxTabela = v[i];
             int idxList = tbFornecedor.convertRowIndexToModel(idxTabela);
-            c.add(lstFornecedor.get(idxList));
+            f.add(lstFornecedor.get(idxList));
+            fd.remover(lstFornecedor.get(idxList));
         }
         
-        lstFornecedor.removeAll(c);
+        lstFornecedor.removeAll(f);
         txtNome.setText("");
-        txtTelefone.setText("");
         txtCnpj.setText("");
+        txtTelefone.setText("");
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        FornecedorDAO fd = new FornecedorDAO();
+        
+        for (Fornecedor f:lstFornecedor) {
+            if(f.getId()==null) {
+                fd.inserir(f);
+            } else {
+                fd.alterar(f);
+            }
+        }   
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel concentracao;
     private javax.swing.JLabel descricao;
     private javax.swing.JScrollPane jScrollPane1;

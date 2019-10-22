@@ -14,6 +14,30 @@ import java.beans.PropertyChangeSupport;
  */
 public class Fornecedor {
     
+    private Integer Id;
+
+    public static final String PROP_ID = "Id";
+
+    /**
+     * Get the value of Id
+     *
+     * @return the value of Id
+     */
+    public Integer getId() {
+        return Id;
+    }
+
+    /**
+     * Set the value of Id
+     *
+     * @param Id new value of Id
+     */
+    public void setId(Integer Id) {
+        Integer oldId = this.Id;
+        this.Id = Id;
+        propertyChangeSupport.firePropertyChange(PROP_ID, oldId, Id);
+    }
+
     private String nome;
 
     public static final String PROP_NOME = "nome";

@@ -28,7 +28,8 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
     public GerenciarFornecedor() {
         lstFornecedor = new ArrayList<>();
         lstFornecedor = ObservableCollections.observableList(lstFornecedor);
-        
+        FornecedorDAO fornDAO = new FornecedorDAO();
+        lstFornecedor = fornDAO.listar();
         initComponents();
         
         BindingGroup bg = new BindingGroup();
@@ -36,7 +37,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
         JTableBinding tb = SwingBindings.createJTableBinding(AutoBinding.UpdateStrategy.READ_WRITE,
                 lstFornecedor, tbFornecedor);
         JTableBinding.ColumnBinding cb = tb.addColumnBinding(BeanProperty.create("nome"));
-        cb.setColumnName("Nome do Cliente");
+        cb.setColumnName("Nome do Fornecedor");
         cb = tb.addColumnBinding(BeanProperty.create("telefone"));
         cb.setColumnName("Telefone");
         cb = tb.addColumnBinding(BeanProperty.create("cnpj"));
@@ -84,6 +85,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
         concentracao = new javax.swing.JLabel();
         validade = new javax.swing.JLabel();
         txtCnpj = new javax.swing.JTextField();
+        alterar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -165,6 +167,13 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
 
         txtCnpj.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
+        alterar.setText("Salvar Edição");
+        alterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                alterarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -174,6 +183,8 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(alterar)
+                        .addGap(18, 18, 18)
                         .addComponent(btnExcluir)
                         .addGap(18, 18, 18)
                         .addComponent(btnAdicionar))
@@ -210,7 +221,8 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnExcluir))
+                    .addComponent(btnExcluir)
+                    .addComponent(alterar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(28, Short.MAX_VALUE))
@@ -221,6 +233,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         Fornecedor f = new Fornecedor();
+        FornecedorDAO fornDAO = new FornecedorDAO();
         if(tbFornecedor.getSelectedRows().length==0){
             f.setNome(txtNome.getText());
             f.setTelefone(txtTelefone.getText());
@@ -235,6 +248,7 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
                     lstFornecedor.size()-1, 
                     lstFornecedor.size()-1);
         }
+        fornDAO.inserir(f);
         
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
@@ -251,22 +265,38 @@ public class GerenciarFornecedor extends javax.swing.JInternalFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int v[] = tbFornecedor.getSelectedRows();
         List<Fornecedor> c = new LinkedList<>();
-        
+        FornecedorDAO fornDAO = new FornecedorDAO();
         for(int i=0;i<v.length;i++) 
         {
             int idxTabela = v[i];
             int idxList = tbFornecedor.convertRowIndexToModel(idxTabela);
             c.add(lstFornecedor.get(idxList));
+            fornDAO.remover(lstFornecedor.get(idxList));
         }
         
         lstFornecedor.removeAll(c);
         txtNome.setText("");
         txtTelefone.setText("");
         txtCnpj.setText("");
+        
     }//GEN-LAST:event_btnExcluirActionPerformed
+
+    private void alterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alterarActionPerformed
+        int v[] = tbFornecedor.getSelectedRows();
+        List<Fornecedor> c = new LinkedList<>();
+        FornecedorDAO fornDAO = new FornecedorDAO();
+        for(int i=0;i<v.length;i++) 
+        {
+            int idxTabela = v[i];
+            int idxList = tbFornecedor.convertRowIndexToModel(idxTabela);
+            //c.add(lstFornecedor.get(idxList));
+            fornDAO.alterar(lstFornecedor.get(idxList));
+        }
+    }//GEN-LAST:event_alterarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton alterar;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JLabel concentracao;

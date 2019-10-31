@@ -93,6 +93,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 Fornecedor f = new Fornecedor();
+                f.setId(rs.getInt("id_fornecedor"));
                 f.setNome(rs.getString("nome"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCnpj(rs.getString("cnpj"));

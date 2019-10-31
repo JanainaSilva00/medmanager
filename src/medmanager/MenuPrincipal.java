@@ -152,6 +152,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuAtributos.add(itemMenuTipo);
 
         itemMenuNivelAcesso.setText("Nivel de Acesso");
+        itemMenuNivelAcesso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuNivelAcessoActionPerformed(evt);
+            }
+        });
         menuAtributos.add(itemMenuNivelAcesso);
 
         menuPricipal.add(menuAtributos);
@@ -196,6 +201,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void menuItemMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemMedicoActionPerformed
         areaDeTrabalho.abrirGerenciarMedico();
     }//GEN-LAST:event_menuItemMedicoActionPerformed
+
+    private void itemMenuNivelAcessoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuNivelAcessoActionPerformed
+        areaDeTrabalho.abrirGerenciarNivelAcesso();
+    }//GEN-LAST:event_itemMenuNivelAcessoActionPerformed
 
     /**
      * @param args the command line arguments

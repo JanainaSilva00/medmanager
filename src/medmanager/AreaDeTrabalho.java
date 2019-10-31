@@ -14,6 +14,7 @@ public class AreaDeTrabalho extends JDesktopPane
     private JInternalFrame geFuncionario;
     private JInternalFrame geMedico;
     private JInternalFrame gePaciente;
+    private JInternalFrame geNivelAcesso;
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
@@ -76,5 +77,17 @@ public class AreaDeTrabalho extends JDesktopPane
     
     public void fecharGerenciarMedico(){
         geMedico = null;
+    } 
+    
+    public void abrirGerenciarNivelAcesso(){
+        if (geNivelAcesso == null) {
+            geNivelAcesso = new GerenciarNivelAcesso();
+            geNivelAcesso.setVisible(true);
+            add(geNivelAcesso);
+        }
+    }
+    
+    public void fecharGerenciarNivelAcesso(){
+        geNivelAcesso = null;
     } 
 }

@@ -46,7 +46,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
     @Override
     public boolean alterar(Fornecedor element) {
         try{
-            String sql = "UPDATE fornecedor SET nome = ?, telefone = ? id_fornecedor = ?;";
+            String sql = "UPDATE fornecedor SET nome = ?, telefone = ? WHERE id_fornecedor = ?;";
             
             PreparedStatement stmt = conn.prepareStatement(sql);
             

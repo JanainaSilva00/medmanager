@@ -184,7 +184,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemUtensiliosActionPerformed
 
     private void menuItemProdutosGeraisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProdutosGeraisActionPerformed
-        // TODO add your handling code here:
+        areaDeTrabalho.abrirGerenciarProduto();
     }//GEN-LAST:event_menuItemProdutosGeraisActionPerformed
 
     private void menuItemFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemFuncionarioActionPerformed

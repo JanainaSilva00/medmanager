@@ -20,7 +20,7 @@ public abstract class DAO<E> {
     
     public DAO()
     {
-        String url = "jdbc:mysql://127.0.0.1:3308/medmanager?serverTimezone=UTC";
+        String url = "jdbc:mysql://127.0.0.1:3306/medmanager?serverTimezone=UTC";
         String user = "root";
         String password = "";
         

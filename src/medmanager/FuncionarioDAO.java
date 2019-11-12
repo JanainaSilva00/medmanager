@@ -96,7 +96,6 @@ public class FuncionarioDAO extends DAO<Funcionario> {
                 f.setId(rs.getInt("id_funcionario"));
                 f.setNome(rs.getString("nome"));
                 f.setCpf(rs.getString("cpf"));
-                System.out.println(f.getNome());
                 lstFuncionario.add(f);
             }
             

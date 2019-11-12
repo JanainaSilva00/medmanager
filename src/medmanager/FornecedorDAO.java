@@ -93,6 +93,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
             ResultSet rs = stmt.executeQuery(sql);
             while(rs.next()){
                 Fornecedor f = new Fornecedor();
+                f.setId(rs.getInt("id_fornecedor"));
                 f.setNome(rs.getString("nome"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCnpj(rs.getString("cnpj"));
@@ -105,5 +106,25 @@ public class FornecedorDAO extends DAO<Fornecedor> {
             System.out.printf(e.getMessage());
         }
         return lstFornecedor;
+    }
+    
+    public Fornecedor getById(int id){
+        String sql = "SELECT * FROM fornecedor WHERE id_fornecedor = " + id;
+        Fornecedor f = null;
+        try{
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            if(rs.next()){
+                f = new Fornecedor();
+                f.setId(rs.getInt("id_fornecedor"));
+                f.setNome(rs.getString("nome"));
+                f.setTelefone(rs.getString("telefone"));
+                f.setCnpj(rs.getString("cnpj"));
+            }
+        }catch(SQLException e){
+            System.out.println("erro ao retornar fornecedor com id = " + id + ": "+e.getMessage());
+        }
+        
+        return f;
     }
 }

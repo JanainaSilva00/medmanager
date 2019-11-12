@@ -31,11 +31,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="nome4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cbFornecedores" max="32767" attributes="0"/>
+                              <Component id="fornecedor" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="cbFornecedores1" min="-2" pref="241" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Component id="jScrollPane1" alignment="0" pref="467" max="32767" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="0" pref="477" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="btnExcluir" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -47,7 +48,7 @@
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="nome1" alignment="0" max="-2" attributes="0"/>
+                                  <Component id="qtd" alignment="0" max="-2" attributes="0"/>
                                   <Component id="nome" alignment="0" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -56,11 +57,11 @@
                                   <Group type="102" attributes="0">
                                       <Component id="txtQtd" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
-                                      <Component id="nome2" min="-2" max="-2" attributes="0"/>
+                                      <Component id="validade" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtValidade" max="32767" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="nome3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lote" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="txtLote" max="32767" attributes="0"/>
                                   </Group>
@@ -71,7 +72,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="159" max="-2" attributes="0"/>
                       <Component id="descricao" max="32767" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -83,35 +83,35 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Component id="descricao" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="8" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="txtNome" alignment="1" max="-2" attributes="0"/>
                   <Component id="nome" alignment="1" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nome1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="qtd" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtQtd" alignment="3" max="-2" attributes="0"/>
-                  <Component id="nome2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="validade" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtValidade" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="nome3" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lote" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="txtLote" alignment="3" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="nome4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="cbFornecedores" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="fornecedor" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="cbFornecedores1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAdicionar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnExcluir" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" alignment="1" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="148" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="13" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -140,7 +140,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nome1">
+    <Component class="javax.swing.JLabel" name="qtd">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="1"/>
@@ -155,7 +155,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nome2">
+    <Component class="javax.swing.JLabel" name="validade">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="1"/>
@@ -177,7 +177,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nome3">
+    <Component class="javax.swing.JLabel" name="lote">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="1"/>
@@ -185,7 +185,7 @@
         <Property name="text" type="java.lang.String" value="Lote"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="nome4">
+    <Component class="javax.swing.JLabel" name="fornecedor">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Arial" size="12" style="1"/>
@@ -193,7 +193,7 @@
         <Property name="text" type="java.lang.String" value="Fornecedor"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JComboBox" name="cbFornecedores">
+    <Component class="javax.swing.JComboBox" name="cbFornecedores1">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
@@ -215,7 +215,7 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
       <SubComponents>
-        <Component class="javax.swing.JTable" name="jTable1">
+        <Component class="javax.swing.JTable" name="tbProduto">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
@@ -269,6 +269,9 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Limpar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

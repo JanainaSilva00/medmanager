@@ -1,16 +1,100 @@
 package medmanager;
 
+import java.util.LinkedList;
+import java.util.List;
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Binding;
+import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.swingbinding.JComboBoxBinding;
+import org.jdesktop.swingbinding.JTableBinding;
+import org.jdesktop.swingbinding.JTableBinding.ColumnBinding;
+import org.jdesktop.swingbinding.SwingBindings;
+
 /**
  *
  * @author Janaina
  */
 public class GerenciarProduto extends javax.swing.JInternalFrame {
 
+    private List<Produto> lstProduto;
+    private List<Fornecedor> lstFornecedor;
     /**
      * Creates new form GerenciarProdutos
      */
     public GerenciarProduto() {
+        ProdutoDAO pd = new ProdutoDAO();
+        lstProduto = pd.listar();
+                
+        FornecedorDAO fd = new FornecedorDAO();
+        lstFornecedor = fd.listar();
+        
         initComponents();
+
+        BindingGroup bg = new BindingGroup();
+
+        JTableBinding tbb = SwingBindings.createJTableBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE,
+                lstProduto,
+                tbProduto);
+        ColumnBinding cb = tbb.addColumnBinding(BeanProperty.create("nome"));
+        cb.setColumnName("Nome");
+        cb.setEditable(false);
+       
+        cb = tbb.addColumnBinding(BeanProperty.create("qtd"));
+        cb.setColumnName("Quantidade");
+        cb.setEditable(false);
+        
+        cb = tbb.addColumnBinding(BeanProperty.create("validade"));
+        cb.setColumnName("Validade");
+        cb.setColumnClass(java.util.Date.class);
+        cb.setEditable(false);
+                
+        cb = tbb.addColumnBinding(BeanProperty.create("lote"));
+        cb.setColumnName("Lote");
+        cb.setEditable(false);
+        
+        cb = tbb.addColumnBinding(BeanProperty.create("fornecedor"));
+        cb.setColumnName("Fornecedor");
+        cb.setEditable(false);
+        
+        bg.addBinding(tbb);
+        
+        JComboBoxBinding cbb = SwingBindings.createJComboBoxBinding(
+                AutoBinding.UpdateStrategy.READ_WRITE, 
+                lstFornecedor, 
+                cbFornecedores1);
+        bg.addBinding(cbb);
+        
+        Binding b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                tbProduto, BeanProperty.create("selectedElement.fornecedor"),
+                cbFornecedores1, BeanProperty.create("selectedItem"));
+        bg.addBinding(b);
+       
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                tbProduto, BeanProperty.create("selectedElement.nome"),
+                txtNome, BeanProperty.create("text"));
+        bg.addBinding(b);
+        
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                tbProduto, BeanProperty.create("selectedElement.qtd"),
+                txtQtd, BeanProperty.create("text"));
+        bg.addBinding(b);
+        
+        ConversorDateString c = new ConversorDateString();
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE,
+                tbProduto, BeanProperty.create("selectedElement.validade"),
+                txtValidade, BeanProperty.create("text"));
+        b.setConverter(c);
+        bg.addBinding(b);
+
+        b = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, 
+                tbProduto, BeanProperty.create("selectedElement.lote"),
+                txtLote, BeanProperty.create("text"));
+        bg.addBinding(b);
+        
+        bg.bind();
     }
 
     /**
@@ -25,16 +109,16 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
         descricao = new javax.swing.JLabel();
         nome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
-        nome1 = new javax.swing.JLabel();
+        qtd = new javax.swing.JLabel();
         txtQtd = new javax.swing.JTextField();
-        nome2 = new javax.swing.JLabel();
+        validade = new javax.swing.JLabel();
         txtValidade = new javax.swing.JTextField();
         txtLote = new javax.swing.JTextField();
-        nome3 = new javax.swing.JLabel();
-        nome4 = new javax.swing.JLabel();
-        cbFornecedores = new javax.swing.JComboBox<>();
+        lote = new javax.swing.JLabel();
+        fornecedor = new javax.swing.JLabel();
+        cbFornecedores1 = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbProduto = new javax.swing.JTable();
         btnExcluir = new javax.swing.JButton();
         btnAdicionar = new javax.swing.JButton();
         btSalvar = new javax.swing.JButton();
@@ -53,27 +137,27 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
 
         txtNome.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        nome1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        nome1.setText("Quantidade");
+        qtd.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        qtd.setText("Quantidade");
 
         txtQtd.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        nome2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        nome2.setText("Validade");
+        validade.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        validade.setText("Validade");
 
         txtValidade.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         txtLote.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        nome3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        nome3.setText("Lote");
+        lote.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lote.setText("Lote");
 
-        nome4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        nome4.setText("Fornecedor");
+        fornecedor.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        fornecedor.setText("Fornecedor");
 
-        cbFornecedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbFornecedores1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,7 +168,7 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbProduto);
 
         btnExcluir.setBackground(new java.awt.Color(255, 102, 102));
         btnExcluir.setText("Excluir");
@@ -112,6 +196,11 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
 
         jButton1.setBackground(new java.awt.Color(255, 255, 153));
         jButton1.setText("Limpar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,10 +212,11 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(nome4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbFornecedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 467, Short.MAX_VALUE)
+                                .addComponent(fornecedor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbFornecedores1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnExcluir)
                                 .addGap(18, 18, 18)
@@ -137,7 +227,7 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
                                 .addComponent(btSalvar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(nome1)
+                                    .addComponent(qtd)
                                     .addComponent(nome))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,17 +235,16 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtQtd)
                                         .addGap(59, 59, 59)
-                                        .addComponent(nome2)
+                                        .addComponent(validade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtValidade)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(nome3)
+                                        .addComponent(lote)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtLote))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(159, 159, 159)
-                        .addComponent(descricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(descricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -163,66 +252,97 @@ public class GerenciarProduto extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(descricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nome1)
+                    .addComponent(qtd)
                     .addComponent(txtQtd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nome2)
+                    .addComponent(validade)
                     .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nome3)
+                    .addComponent(lote)
                     .addComponent(txtLote, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nome4)
-                    .addComponent(cbFornecedores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fornecedor)
+                    .addComponent(cbFornecedores1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
                     .addComponent(btnExcluir)
                     .addComponent(btSalvar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        int v[] = tbProduto.getSelectedRows();
+        List<Produto> p = new LinkedList<>();
+        ProdutoDAO fd = new ProdutoDAO();
+
+        for(int i=0; i<v.length; i++) {
+            int idxTabela = v[i];
+            int idxList = tbProduto.convertRowIndexToModel(idxTabela);
+            p.add(lstProduto.get(idxList));
+            fd.remover(lstProduto.get(idxList));
+        }
         
+        lstProduto.removeAll(p);
+        txtNome.setText("");
+        txtLote.setText("");
+        txtValidade.setText("");
+        txtQtd.setText("");
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-       
+        lstProduto.add(new Produto());
+        tbProduto.getSelectionModel().setSelectionInterval(lstProduto.size()-1, lstProduto.size()-1);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-      
+        ProdutoDAO pd = new ProdutoDAO();
+        
+        for (Produto p:lstProduto) {
+            if (p.getIdProduto() == null) {
+                pd.inserir(p);
+            } else {
+                pd.alterar(p);
+            }
+        }   
     }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        txtNome.setText("");
+        txtLote.setText("");
+        txtValidade.setText("");
+        txtQtd.setText("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JComboBox<String> cbFornecedores;
+    private javax.swing.JComboBox<String> cbFornecedores1;
     private javax.swing.JLabel descricao;
+    private javax.swing.JLabel fornecedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lote;
     private javax.swing.JLabel nome;
-    private javax.swing.JLabel nome1;
-    private javax.swing.JLabel nome2;
-    private javax.swing.JLabel nome3;
-    private javax.swing.JLabel nome4;
+    private javax.swing.JLabel qtd;
+    private javax.swing.JTable tbProduto;
     private javax.swing.JTextField txtLote;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtQtd;
     private javax.swing.JTextField txtValidade;
+    private javax.swing.JLabel validade;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,7 @@ public class AreaDeTrabalho extends JDesktopPane
     private JInternalFrame gePaciente;
     private JInternalFrame geNivelAcesso;
     private JInternalFrame geTipo;
+    private JInternalFrame geModoUso;
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
@@ -102,4 +103,16 @@ public class AreaDeTrabalho extends JDesktopPane
     public void fecharGerenciarTipoMedicamento(){
         geTipo = null;
     } 
+    
+    public void abrirGerenciarModoUsoMedicamento(){
+        if(geModoUso == null){
+            geModoUso = new GerenciarModoUsoMedicamento();
+            geModoUso.setVisible(true);
+            add(geModoUso);
+        }
+    }
+    
+    public void fecharGerenciarModoUsoMedicamento(){
+        geModoUso = null;
+    }
 }

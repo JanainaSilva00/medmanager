@@ -143,6 +143,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         menuAtributos.setText("Atributos");
 
         itemMenuFormato.setText("Formato");
+        itemMenuFormato.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemMenuFormatoActionPerformed(evt);
+            }
+        });
         menuAtributos.add(itemMenuFormato);
 
         itemMenuModoUso.setText("Modo de Uso");
@@ -223,6 +228,10 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void itemMenuModoUsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuModoUsoActionPerformed
         areaDeTrabalho.abrirGerenciarModoUsoMedicamento();
     }//GEN-LAST:event_itemMenuModoUsoActionPerformed
+
+    private void itemMenuFormatoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemMenuFormatoActionPerformed
+        areaDeTrabalho.abrirGerenciarFormatoMedicamento();
+    }//GEN-LAST:event_itemMenuFormatoActionPerformed
 
     /**
      * @param args the command line arguments

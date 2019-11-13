@@ -18,6 +18,8 @@ public class AreaDeTrabalho extends JDesktopPane
     private JInternalFrame geTipo;
     private JInternalFrame geProduto;
     private JInternalFrame geModoUso;
+    private JInternalFrame geFormatoMedicamento;
+
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
@@ -127,4 +129,18 @@ public class AreaDeTrabalho extends JDesktopPane
     public void fecharGerenciarModoUsoMedicamento(){
         geModoUso = null;
     }
+        
+    public void abrirGerenciarFormatoMedicamento(){
+        if (geFormatoMedicamento == null) {
+            geFormatoMedicamento = new GerenciarFormatoMedicamento();
+            geFormatoMedicamento.setVisible(true);
+            add(geFormatoMedicamento);
+        }
+    }
+    
+    public void fecharGerenciarFormatoMedicamento(){
+        System.out.println("Entrou");
+        geFormatoMedicamento = null;
+        System.out.println(geFormatoMedicamento);
+    } 
 }

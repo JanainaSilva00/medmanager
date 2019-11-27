@@ -5,6 +5,7 @@
  */
 package medmanager;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,6 +19,14 @@ import org.jdesktop.observablecollections.ObservableCollections;
  * @author Alecsandre
  */
 public class FornecedorDAO extends DAO<Fornecedor> {
+    
+    public FornecedorDAO(){
+    }
+    
+    public FornecedorDAO(Connection c){
+        super(c);
+    }
+    
     @Override
     public boolean inserir(Fornecedor element) {
         try{
@@ -97,7 +106,6 @@ public class FornecedorDAO extends DAO<Fornecedor> {
                 f.setNome(rs.getString("nome"));
                 f.setTelefone(rs.getString("telefone"));
                 f.setCnpj(rs.getString("cnpj"));
-                System.out.println(f.getNome());
                 lstFornecedor.add(f);
             }
             
@@ -111,6 +119,7 @@ public class FornecedorDAO extends DAO<Fornecedor> {
     public Fornecedor getById(int id){
         String sql = "SELECT * FROM fornecedor WHERE id_fornecedor = " + id;
         Fornecedor f = null;
+        System.out.println(id);
         try{
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);

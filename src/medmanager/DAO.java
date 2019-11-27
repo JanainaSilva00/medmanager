@@ -33,4 +33,8 @@ public abstract class DAO<E> {
             System.out.println("Erro na conexao: " + e.getMessage());
         }
     }
+    
+    public DAO(Connection c){
+        conn = c;
+    }
 }

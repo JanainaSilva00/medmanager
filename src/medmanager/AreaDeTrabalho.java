@@ -23,7 +23,7 @@ public class AreaDeTrabalho extends JDesktopPane
     
     public void abrirCadastroMedicamento(){
         if (cadMedicamento == null) {
-            cadMedicamento = new CadastroMedicamento();
+            cadMedicamento = new GerenciarMedicamento();
             cadMedicamento.setVisible(true);
             add(cadMedicamento);
         }

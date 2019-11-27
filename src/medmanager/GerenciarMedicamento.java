@@ -9,12 +9,12 @@ package medmanager;
  *
  * @author Janaina
  */
-public class CadastroMedicamento extends javax.swing.JInternalFrame {
+public class GerenciarMedicamento extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form CadastroMedicamento
      */
-    public CadastroMedicamento() {
+    public GerenciarMedicamento() {
         initComponents();
     }
 
@@ -114,7 +114,7 @@ public class CadastroMedicamento extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 67, Short.MAX_VALUE)
+                        .addGap(0, 69, Short.MAX_VALUE)
                         .addComponent(descricao)
                         .addGap(54, 54, 54))
                     .addGroup(layout.createSequentialGroup()
@@ -179,10 +179,11 @@ public class CadastroMedicamento extends javax.swing.JInternalFrame {
                     .addComponent(validade)
                     .addComponent(txtValidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnSalvar)
-                    .addComponent(btnLimpar)
-                    .addComponent(btnCancelar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnLimpar)
+                        .addComponent(btnCancelar)))
                 .addContainerGap())
         );
 

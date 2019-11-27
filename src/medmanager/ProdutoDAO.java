@@ -3,6 +3,7 @@ package medmanager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Savepoint;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,22 @@ import org.jdesktop.observablecollections.ObservableCollections;
 public class ProdutoDAO  extends DAO<Produto> {
     @Override
     public boolean inserir(Produto element) {
+        Fornecedor f = element.getFornecedor();
+        Savepoint sp;
+        try{
+            conn.setAutoCommit(false);
+            sp = conn.setSavepoint("inicio");
+
+        }catch(SQLException e){
+            System.out.println("erro ao desligar autocommit");
+            return false;
+        }
+        
+        FornecedorDAO fd = new FornecedorDAO(conn);
+        if (f.getId()==null) {
+            fd.inserir(f);
+        }
+        
         try{
             String sql = "INSERT INTO produto("
                     + "nome, lote, quantidade, validade, id_fornecedor) "
@@ -27,9 +44,6 @@ public class ProdutoDAO  extends DAO<Produto> {
             stmt.setString(2, element.getLote());
             stmt.setInt(3, element.getQtd());
             stmt.setDate(4, element.getValidade());
-            System.out.println(element.getFornecedor());
-            System.out.println(element.getFornecedor().getId());
-
             stmt.setInt(5, element.getFornecedor().getId());
             
             int linhas = stmt.executeUpdate();
@@ -37,10 +51,19 @@ public class ProdutoDAO  extends DAO<Produto> {
                 ResultSet rs = stmt.getGeneratedKeys();
                 rs.next();
                 element.setIdProduto(rs.getInt(1));
+                conn.commit();
                 return true;
             }
         }catch(SQLException e){
             System.out.println("erro ao inserir: "+ e.getMessage());
+        }
+        
+        try{
+            System.out.println("rollback");
+            conn.rollback(sp);
+            
+        }catch(SQLException e){
+            System.out.println("erro no rollback");
         }
         return false;
     }
